@@ -1,0 +1,19 @@
+.bookmarks {
+  width: 80%;
+  margin: auto;
+  padding: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.bookmarks > p {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.bookmarks_list {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  gap: 20px;
+}

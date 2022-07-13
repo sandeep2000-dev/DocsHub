@@ -1,0 +1,87 @@
+.doccard {
+  width: 300px;
+  border-radius: 5px;
+  box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.2s;
+  background-color: white;
+}
+
+.doccard:hover {
+  box-shadow: 0 10px 15px 0px rgba(0, 0, 0, 0.3);
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+.doccard_content {
+  height: 200px;
+  overflow: auto;
+  border-radius: 5px 5px 0 0;
+  border-bottom: solid 1px rgb(168, 168, 168);
+}
+
+.doccard_info {
+  padding: 10px;
+}
+
+.doccard_title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+  word-wrap: break-word;
+  padding: 10px;
+  text-align: center;
+}
+
+.doccard_date {
+  padding-bottom: 5px;
+}
+
+.doccard_date p {
+  padding-left: 10px;
+  margin-bottom: 5px;
+  font-size: 11px;
+  font-style: italic;
+  font-weight: 100;
+  color: rgb(175, 175, 175);
+}
+
+.doccard_footer {
+  margin-top: auto;
+}
+
+.doccard_btn {
+  display: grid;
+  grid-template-columns: auto auto;
+  background-color: rgb(204, 204, 204);
+}
+
+.doccard_item {
+  padding: 10px 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.doccard_btn > div:first-child {
+  border-right: solid 1px rgb(160, 160, 160);
+}
+
+.doccard_edit_icon {
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+
+.doccard_delete_icon {
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+
+.doccard_likes {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  padding: 10px;
+}

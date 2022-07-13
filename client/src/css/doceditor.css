@@ -1,0 +1,68 @@
+.doceditor {
+  width: 80%;
+  margin: auto;
+}
+
+.doceditor_top {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+}
+
+.doceditor_top > button {
+  padding: 7px 15px;
+  font-size: 1rem;
+  background-color: rgb(162, 18, 245);
+  border-radius: 5px;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.doceditor_top > button:hover {
+  background-color: rgb(122, 14, 185);
+}
+
+.doceditor_title {
+  padding: 15px 0;
+  font-size: 1.2rem;
+}
+
+.doceditor_title > label {
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.doceditor_title > input {
+  width: 300px;
+  padding: 5px;
+  margin-right: 10px;
+  border: none;
+  font-size: 1rem;
+}
+
+/* .quill {
+  position: relative;
+} */
+
+.doceditor .ql-toolbar {
+  position: sticky;
+  top: 41.5px;
+  background-color: white;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+  border: none;
+  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.5);
+}
+
+.doceditor .ql-container {
+  width: 8.5in;
+  min-height: 11in;
+  padding: 0.5in;
+  background-color: white;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
+  margin: auto;
+}

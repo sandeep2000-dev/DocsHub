@@ -1,0 +1,40 @@
+.viewProfile {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.viewProfile_field {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+
+.viewProfile_field > p {
+  padding: 10px;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.viewProfile_image {
+  float: right;
+}
+
+.viewProfile_image > img {
+  max-width: 300px;
+  height: 300px;
+}
+
+.viewProfile > button {
+  font-size: 1rem;
+  padding: 10px 15px;
+  margin-left: 10px;
+  margin-top: 10px;
+  background-color: rgb(0, 206, 62);
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+}
+
+.viewProfile > button:hover {
+  background-color: rgb(0, 179, 0);
+}

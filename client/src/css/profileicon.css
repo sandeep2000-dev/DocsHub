@@ -1,0 +1,19 @@
+.profileIcon {
+  width: 100px;
+  height: 50px;
+  cursor: pointer;
+}
+
+.profileIcon > img {
+  width: 50px;
+  height: 50px;
+  float: left;
+  border-radius: 50px;
+  margin-right: 10px;
+}
+
+.profileIcon > p {
+  padding-top: 10px;
+  font-size: 1.2rem;
+  font-weight: bold;
+}

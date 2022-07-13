@@ -1,0 +1,63 @@
+.editProfile {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.editProfile_field {
+  margin-bottom: 25px;
+}
+
+.editProfile_field > label {
+  padding: 10px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.editProfile_field > input {
+  width: 300px;
+  font-size: 1rem;
+  padding: 5px 5px;
+  border-radius: 5px;
+  border: solid 1px black;
+}
+
+.editProfile_file {
+  padding: 10px;
+}
+
+.editProfile_file > p {
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.editProfile_file > input {
+  cursor: pointer;
+}
+
+.editProfile > button {
+  font-size: 1rem;
+  padding: 10px 15px;
+  margin-left: 10px;
+  margin-top: 30px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+}
+
+.editProfile_saveBtn {
+  background-color: rgb(0, 206, 62);
+}
+
+.editProfile_cancleBtn {
+  background-color: red;
+}
+
+.editProfile_saveBtn:hover {
+  background-color: rgb(0, 179, 0);
+}
+
+.editProfile_cancleBtn:hover {
+  background-color: rgb(214, 2, 2);
+}

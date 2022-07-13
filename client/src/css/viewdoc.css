@@ -1,0 +1,68 @@
+.viewdoc {
+  width: 80%;
+  margin: auto;
+}
+
+.viewdoc_top {
+  padding: 20px 0;
+}
+
+.viewdoc_title {
+  text-align: center;
+  font-size: 2rem;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bolder;
+}
+
+.viewdoc_info {
+  margin-bottom: 10px;
+}
+
+.viewdoc_info_like {
+  float: right;
+  padding: 10px 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+}
+
+.viewdoc_info_like > p {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.viewdoc_like_icon {
+  font-size: 2rem;
+  transition: transform 0.2s;
+  cursor: pointer;
+}
+
+.viewdoc_like_icon:hover {
+  transform: scale(1.2);
+}
+
+.viewdoc_info_bookmark {
+  float: right;
+  margin-top: 13px;
+  padding: 0 10px;
+}
+
+.viewdoc_bookmark_icon {
+  font-size: 1.7rem;
+  transition: transform 0.2s;
+  cursor: pointer;
+}
+
+.viewdoc_bookmark_icon:hover {
+  transform: scale(1.2);
+}
+
+.viewdoc .ql-container {
+  width: 8.5in;
+  min-height: 11in;
+  padding: 0.5in;
+  background-color: white;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
+  margin: auto;
+}

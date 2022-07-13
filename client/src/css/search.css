@@ -1,0 +1,61 @@
+.search {
+  width: 85%;
+  margin: auto;
+  padding: 20px 0;
+}
+
+.search > p {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.search_types {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.search_title {
+  padding: 10px;
+  width: 300px;
+}
+
+.search_title > label {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.search_title > input {
+  width: 100%;
+  padding: 5px;
+  font-size: 1rem;
+  border: none;
+}
+
+.search_user {
+  padding: 10px;
+  width: 300px;
+}
+
+.search_user > label {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.search_user > input {
+  width: 100%;
+  padding: 5px;
+  font-size: 1rem;
+  border: none;
+}
+
+.search_list {
+  display: flex;
+  flex-direction: row;
+  justify-self: start;
+  flex-wrap: wrap;
+  gap: 30px;
+}

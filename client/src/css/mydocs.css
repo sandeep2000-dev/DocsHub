@@ -1,0 +1,60 @@
+.mydocs {
+  width: 85%;
+  margin: auto;
+  padding: 20px 0;
+}
+
+.mydocs_createDoc {
+  margin-bottom: 20px;
+}
+
+.mydocs_createDoc > p {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.mydocs_title {
+  padding: 15px 0;
+  font-size: 1.2rem;
+}
+
+.mydocs_title > label {
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.mydocs_title > input {
+  width: 300px;
+  padding: 5px;
+  margin-right: 10px;
+  border: none;
+  font-size: 1rem;
+}
+
+.mydocs_title button {
+  font-size: 1rem;
+  padding: 10px 15px;
+  background-color: rgb(0, 206, 62);
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+}
+
+.mydocs_title button:hover {
+  background-color: rgb(0, 179, 0);
+}
+
+.mydocs_docs > p {
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.mydocs_list {
+  display: flex;
+  justify-content: start;
+  align-items: stretch;
+  flex-wrap: wrap;
+  gap: 30px;
+}
