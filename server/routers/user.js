@@ -41,7 +41,7 @@ router.get("/:userId", checkAuthenticated, async (req, res) => {
       },
     });
   } catch (e) {
-    res.json({
+    return res.json({
       status: "error",
       err: e,
     });
@@ -89,7 +89,7 @@ router.patch("/:id/", checkAuthenticated, upload, async (req, res) => {
       user.profileImagePath = req.file.path;
     }
     await user.save();
-    res.json({
+    return res.json({
       status: "success",
       name: user.name,
       userId: user.userId,
@@ -97,7 +97,7 @@ router.patch("/:id/", checkAuthenticated, upload, async (req, res) => {
       profileImagePath: user.profileImagePath,
     });
   } catch (e) {
-    res.json({
+    return res.json({
       status: "error",
       err: e,
     });
@@ -107,7 +107,7 @@ router.patch("/:id/", checkAuthenticated, upload, async (req, res) => {
 function checkAuthenticated(req, res, next) {
   if (req.isAuthenticated()) return next();
   else
-    res.json({
+    return res.json({
       status: "fail",
       mssg: "Not authenticated",
     });

@@ -40,6 +40,12 @@ const docSchema = new mongoose.Schema({
       createdBy: { type: mongoose.SchemaTypes.ObjectId, ref: "User" },
     },
   ],
+  sharedTo: [
+    {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: "User",
+    },
+  ],
 });
 
 module.exports = mongoose.model("Doc", docSchema);

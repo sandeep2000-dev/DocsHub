@@ -18,6 +18,25 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 
 const app = express();
+const server = require("http").createServer(app);
+const io = require("socket.io")(server, {
+  cors: {
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST"],
+  },
+});
+
+io.on("connection", (socket) => {
+  socket.on("join-doc", (docId) => {
+    socket.join(docId);
+    socket.on("send-quill-changes", (delta) => {
+      socket.broadcast.to(docId).emit("recieve-quill-changes", delta);
+    });
+    socket.on("send-title-changes", (title) => {
+      socket.broadcast.to(docId).emit("recieve-title-changes", title);
+    });
+  });
+});
 
 mongoose
   .connect("mongodb://localhost/docappdb")
@@ -165,4 +184,4 @@ function checkNotAuthenticated(req, res, next) {
   next();
 }
 
-app.listen(4000);
+server.listen(4000);

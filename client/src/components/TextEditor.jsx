@@ -7,6 +7,11 @@ function TextEditor(props) {
   //   const [editorData, setEditorData] = useState({});
   const quillRef = useRef();
 
+  useEffect(() => {
+    if (quillRef.current == null) return;
+    props.setQuill(quillRef.current.getEditor());
+  }, [quillRef.current]);
+
   const toolbarOptions = [
     [{ font: [] }],
     [{ header: [1, 2, 3, 4, 5, 6, false] }],
@@ -52,6 +57,7 @@ function TextEditor(props) {
               `http://localhost:4000/${data.url}`
             );
             editor.setSelection(range.index + 1);
+            props.changeFileAdded(true);
           } else throw new Error(data.err);
         })
         .catch((e) => console.log(e));
@@ -90,6 +96,7 @@ function TextEditor(props) {
               `http://localhost:4000/${data.url}`
             );
             editor.setSelection(range.index + 1);
+            props.changeFileAdded(true);
           } else throw new Error(data.err);
         })
         .catch((e) => console.log(e));

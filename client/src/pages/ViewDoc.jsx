@@ -38,7 +38,7 @@ function ViewDoc() {
 
   useEffect(() => {
     if (doc.likedBy) setIsLiked(doc.likedBy.includes(user._id));
-  }, [doc]);
+  }, [doc, user]);
 
   useEffect(() => {
     if (user.bookmarks) {

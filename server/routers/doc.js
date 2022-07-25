@@ -22,12 +22,12 @@ router.get("/", checkAuthenticated, async (req, res) => {
         likedBy: doc.likedBy,
       };
     });
-    res.json({
+    return res.json({
       status: "success",
       data: docList,
     });
   } catch (e) {
-    res.json({
+    return res.json({
       status: "error",
       err: e,
     });
@@ -61,12 +61,12 @@ router.get("/search", checkAuthenticated, async (req, res) => {
         likedBy: doc.likedBy,
       };
     });
-    res.json({
+    return res.json({
       status: "success",
       docList: docList,
     });
   } catch (e) {
-    res.json({
+    return res.json({
       status: "error",
       err: e,
     });
@@ -80,13 +80,14 @@ router.post("/", checkAuthenticated, async (req, res) => {
     createdBy: ObjectId(id),
   });
   try {
+    newDoc.sharedTo.push(ObjectId(id));
     await newDoc.save();
-    res.json({
+    return res.json({
       status: "success",
       data: newDoc,
     });
   } catch (e) {
-    res.json({
+    return res.json({
       status: "error",
       err: e,
     });
@@ -101,12 +102,12 @@ router.get("/:id/view", checkAuthenticated, async (req, res) => {
       .populate("createdBy", "userId profileImagePath")
       .exec();
     if (doc == null) {
-      res.json({
+      return res.json({
         status: "fail",
         mssg: "no doc with this id",
       });
     } else if (!doc.isPublic && doc.createdBy._id != userId) {
-      res.json({
+      return res.json({
         status: "fail",
         mssg: "not allowed",
       });
@@ -122,12 +123,12 @@ router.get("/:id/view", checkAuthenticated, async (req, res) => {
       likedBy: doc.likedBy,
       comments: doc.comments,
     };
-    res.json({
+    return res.json({
       status: "success",
       doc: data,
     });
   } catch (e) {
-    res.json({
+    return res.json({
       status: "error",
       err: e,
     });
@@ -138,14 +139,14 @@ router.get("/:id/edit", checkAuthenticated, async (req, res) => {
   const userId = req.user;
   const docId = req.params.id;
   try {
-    const doc = await Doc.findById(docId);
+    const doc = await Doc.findById(docId).populate("sharedTo", "userId").exec();
     if (doc == null) {
-      res.json({
+      return res.json({
         status: "fail",
         mssg: "no doc with this id",
       });
-    } else if (doc.createdBy != userId) {
-      res.json({
+    } else if (!doc.sharedTo.some((d) => d._id == userId)) {
+      return res.json({
         status: "fail",
         mssg: "not allowed",
       });
@@ -155,13 +156,15 @@ router.get("/:id/edit", checkAuthenticated, async (req, res) => {
       title: doc.title,
       data: doc.data,
       isPublic: doc.isPublic,
+      sharedList: doc.sharedTo.map((user) => user.userId),
+      createdBy: doc.createdBy,
     };
-    res.json({
+    return res.json({
       status: "success",
       doc: data,
     });
   } catch (e) {
-    res.json({
+    return res.json({
       status: "error",
       err: e,
     });
@@ -174,27 +177,51 @@ router.patch("/:id", checkAuthenticated, async (req, res) => {
   try {
     const doc = await Doc.findById(docId);
     if (doc == null) {
-      res.json({
+      return res.json({
         status: "fail",
         mssg: "no doc with this id",
       });
     } else if (doc.createdBy != userId) {
-      res.json({
+      return res.json({
         status: "fail",
         mssg: "not allowed",
       });
     }
-    doc.data = req.body.data;
-    doc.title = req.body.title;
-    doc.isPublic = req.body.isPublic;
+    if (req.body.data != null) doc.data = req.body.data;
+    if (req.body.title != null) doc.title = req.body.title;
+    if (req.body.isPublic != null) doc.isPublic = req.body.isPublic;
+    if (req.body.sharedList != null) {
+      let correctUserId = [];
+      let wrongUserId = [];
+      for (let i = 0; i < req.body.sharedList.length; i++) {
+        const user = await User.findOne({ userId: req.body.sharedList[i] });
+        if (user == null) wrongUserId.push(req.body.sharedList[i]);
+        else correctUserId.push(user._id);
+      }
+      if (wrongUserId.length != 0) {
+        let mssg = "Wrong User Ids: ";
+        wrongUserId.forEach((userId) => {
+          mssg += userId;
+          mssg += " ";
+        });
+        return res.json({
+          status: "fail",
+          mssg: mssg,
+        });
+      } else {
+        if (!correctUserId.some((id) => id.toString() === req.user))
+          correctUserId.push(ObjectId(req.user));
+        doc.sharedTo = correctUserId;
+      }
+    }
     doc.updatedAt = new Date();
     await doc.save();
-    res.json({
+    return res.json({
       status: "success",
       doc: doc,
     });
   } catch (e) {
-    res.json({
+    return res.json({
       status: "error",
       err: e,
     });
@@ -206,7 +233,7 @@ router.patch("/:id/feedback", checkAuthenticated, async (req, res) => {
   try {
     const doc = await Doc.findById(docId);
     if (doc == null) {
-      res.json({
+      return res.json({
         status: "fail",
         mssg: "no doc with this id",
       });
@@ -223,13 +250,13 @@ router.patch("/:id/feedback", checkAuthenticated, async (req, res) => {
     if (req.body.comments != null) doc.comments = req.body.comments;
 
     await doc.save();
-    res.json({
+    return res.json({
       status: "success",
       likedBy: doc.likedBy,
       comments: doc.comments,
     });
   } catch (e) {
-    res.json({
+    return res.json({
       status: "error",
       err: e,
     });
@@ -242,12 +269,12 @@ router.delete("/:id", checkAuthenticated, async (req, res) => {
   try {
     const doc = await Doc.findById(docId);
     if (doc == null) {
-      res.json({
+      return res.json({
         status: "fail",
         mssg: "no doc with this id",
       });
     } else if (doc.createdBy != userId) {
-      res.json({
+      return res.json({
         status: "fail",
         mssg: "not allowed",
       });
@@ -258,12 +285,12 @@ router.delete("/:id", checkAuthenticated, async (req, res) => {
       } catch (e) {}
     });
     await doc.delete();
-    res.json({
+    return res.json({
       status: "success",
       mssg: "deleted",
     });
   } catch (e) {
-    res.json({
+    return res.json({
       status: "error",
       err: e,
     });
