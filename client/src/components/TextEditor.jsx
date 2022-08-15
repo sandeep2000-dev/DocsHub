@@ -1,7 +1,6 @@
 import ReactQuill from "react-quill";
 import { useState, useEffect, useRef, useMemo } from "react";
 import "react-quill/dist/quill.snow.css";
-// import "react-quill/dist/quill.bubble.css";
 
 function TextEditor(props) {
   //   const [editorData, setEditorData] = useState({});
@@ -37,7 +36,7 @@ function TextEditor(props) {
       let formData = new FormData();
       formData.append("file", file);
 
-      fetch(`http://localhost:4000/doc/${props.docId}/uploadfiles`, {
+      fetch(`/api/doc/${props.docId}/uploadfiles`, {
         method: "POST",
         body: formData,
         credentials: "include",
@@ -51,11 +50,7 @@ function TextEditor(props) {
             let editor = quillRef.current.getEditor();
             editor.focus();
             const range = editor.getSelection();
-            editor.insertEmbed(
-              range.index,
-              "image",
-              `http://localhost:4000/${data.url}`
-            );
+            editor.insertEmbed(range.index, "image", `/${data.url}`);
             editor.setSelection(range.index + 1);
             props.changeFileAdded(true);
           } else throw new Error(data.err);
@@ -76,7 +71,7 @@ function TextEditor(props) {
       let formData = new FormData();
       formData.append("file", file);
 
-      fetch(`http://localhost:4000/doc/${props.docId}/uploadfiles`, {
+      fetch(`/api/doc/${props.docId}/uploadfiles`, {
         method: "POST",
         body: formData,
         credentials: "include",
@@ -90,11 +85,7 @@ function TextEditor(props) {
             let editor = quillRef.current.getEditor();
             editor.focus();
             const range = editor.getSelection();
-            editor.insertEmbed(
-              range.index,
-              "video",
-              `http://localhost:4000/${data.url}`
-            );
+            editor.insertEmbed(range.index, "video", `/${data.url}`);
             editor.setSelection(range.index + 1);
             props.changeFileAdded(true);
           } else throw new Error(data.err);

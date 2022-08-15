@@ -6,6 +6,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const cors = require("cors");
+const path = require("path");
 
 const User = require("./models/User");
 const Doc = require("./models/Doc");
@@ -39,13 +40,15 @@ io.on("connection", (socket) => {
 });
 
 mongoose
-  .connect("mongodb://localhost/docappdb")
+  .connect(process.env.MONGO_URL)
   .then((db) => {
     console.log("connected to db");
   })
   .catch((e) => {
     console.log(e);
   });
+
+app.use(express.static(path.join(__dirname, "build")));
 
 app.use("/uploads", express.static("uploads"));
 app.use(express.json());
@@ -71,10 +74,10 @@ passport.use(new LocalStrategy({ usernameField: "userId" }, authenticateUser));
 passport.serializeUser((user, done) => done(null, user.id));
 passport.deserializeUser((id, done) => done(null, id));
 
-app.use("/doc", docRouter);
-app.use("/user", userRouter);
+app.use("/api/doc", docRouter);
+app.use("/api/user", userRouter);
 
-app.get("/", checkAuthenticated, async (req, res) => {
+app.get("/api", checkAuthenticated, async (req, res) => {
   try {
     const user = await User.findById(req.user).populate("bookmarks").exec();
     res.json({
@@ -95,16 +98,16 @@ app.get("/", checkAuthenticated, async (req, res) => {
   }
 });
 
-app.get("/login", checkNotAuthenticated, (req, res) => {
+app.get("/api/login", checkNotAuthenticated, (req, res) => {
   res.json({ status: "success" });
 });
 
-app.get("/register", checkNotAuthenticated, (req, res) => {
+app.get("/api/register", checkNotAuthenticated, (req, res) => {
   res.json({ status: "success" });
 });
 
 app.post(
-  "/login",
+  "/api/login",
   checkNotAuthenticated,
   passport.authenticate("local"),
   (req, res) => {
@@ -115,7 +118,7 @@ app.post(
   }
 );
 
-app.post("/register", async (req, res) => {
+app.post("/api/register", async (req, res) => {
   try {
     if ((await User.findOne({ userId: req.body.userId })) != null) {
       return res.json({
@@ -143,7 +146,7 @@ app.post("/register", async (req, res) => {
   }
 });
 
-app.delete("/logout", checkAuthenticated, (req, res, next) => {
+app.delete("/api/logout", checkAuthenticated, (req, res, next) => {
   req.logOut((err) => {
     if (err) return next(err);
     res.json({
@@ -151,6 +154,10 @@ app.delete("/logout", checkAuthenticated, (req, res, next) => {
       mssg: "logout successfully",
     });
   });
+});
+
+app.get("/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 
 async function authenticateUser(userId, password, done) {
@@ -184,4 +191,4 @@ function checkNotAuthenticated(req, res, next) {
   next();
 }
 
-server.listen(4000);
+server.listen(process.env.PORT || 4000);

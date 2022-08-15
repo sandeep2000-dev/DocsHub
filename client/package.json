@@ -1,4 +1,5 @@
 {
+  "proxy": "https://localhost:4000",
   "name": "client",
   "version": "0.1.0",
   "private": true,
@@ -19,7 +20,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "buildncopy": "npm run build && (xcopy .\\build ..\\server\\build /e /h /c /i)"
   },
   "eslintConfig": {
     "extends": [

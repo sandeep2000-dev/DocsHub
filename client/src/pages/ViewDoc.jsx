@@ -17,7 +17,7 @@ function ViewDoc() {
   const [isBookmarked, setIsBookmarked] = useState(false);
 
   useEffect(() => {
-    fetch(`http://localhost:4000/doc/${params.id}/view`, {
+    fetch(`/api/doc/${params.id}/view`, {
       credentials: "include",
     })
       .then((res) => {
@@ -47,7 +47,7 @@ function ViewDoc() {
   }, [user]);
 
   function handleLike() {
-    fetch(`http://localhost:4000/doc/${doc._id}/feedback`, {
+    fetch(`/api/doc/${doc._id}/feedback`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",
@@ -72,7 +72,7 @@ function ViewDoc() {
   }
 
   function handleBookmark() {
-    fetch(`http://localhost:4000/user/${user._id}`, {
+    fetch(`/api/user/${user._id}`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",

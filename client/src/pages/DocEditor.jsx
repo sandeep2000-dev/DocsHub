@@ -71,7 +71,7 @@ function DocEditor() {
   }, [socket, quill]);
 
   useEffect(() => {
-    fetch(`http://localhost:4000/doc/${params.id}/edit`, {
+    fetch(`/api/doc/${params.id}/edit`, {
       credentials: "include",
     })
       .then((res) => {
@@ -123,7 +123,7 @@ function DocEditor() {
   }
 
   function handleSave() {
-    fetch(`http://localhost:4000/doc/${params.id}`, {
+    fetch(`/api/doc/${params.id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

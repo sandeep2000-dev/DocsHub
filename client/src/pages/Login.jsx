@@ -11,7 +11,7 @@ function Login() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:4000/login", {
+    fetch("/api/login", {
       credentials: "include",
     })
       .then((res) => res.json())
@@ -29,7 +29,7 @@ function Login() {
       password: password,
     };
 
-    fetch("http://localhost:4000/login", {
+    fetch("/api/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

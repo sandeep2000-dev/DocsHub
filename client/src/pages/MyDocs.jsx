@@ -11,7 +11,7 @@ function MyDocs() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:4000/doc", {
+    fetch("/api/doc", {
       credentials: "include",
     })
       .then((res) => res.json())
@@ -29,7 +29,7 @@ function MyDocs() {
       title: title,
     };
 
-    fetch("http://localhost:4000/doc/", {
+    fetch("/api/doc/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -50,7 +50,7 @@ function MyDocs() {
   }
 
   function handleDocDelete(id) {
-    fetch(`http://localhost:4000/doc/${id}`, {
+    fetch(`/api/doc/${id}`, {
       method: "DELETE",
       credentials: "include",
     })

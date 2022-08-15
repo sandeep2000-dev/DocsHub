@@ -12,7 +12,7 @@ function Profile() {
   let params = useParams();
 
   useEffect(() => {
-    fetch(`http://localhost:4000/user/${params.userId}`, {
+    fetch(`/api/user/${params.userId}`, {
       credentials: "include",
     })
       .then((res) => {

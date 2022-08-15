@@ -18,7 +18,7 @@ function EditProfile(props) {
     formData.append("file", file);
     formData.append("name", name);
     formData.append("userId", userId);
-    fetch(`http://localhost:4000/user/${props.user._id}/`, {
+    fetch(`/api/user/${props.user._id}/`, {
       method: "PATCH",
       body: formData,
       credentials: "include",

@@ -31,7 +31,7 @@ function Share(props) {
   }
 
   function handleDone() {
-    fetch(`http://localhost:4000/doc/${props.id}`, {
+    fetch(`/api/doc/${props.id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

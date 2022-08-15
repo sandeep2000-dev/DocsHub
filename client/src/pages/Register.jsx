@@ -12,7 +12,7 @@ function Register() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:4000/register", {
+    fetch("/api/register", {
       credentials: "include",
     })
       .then((res) => res.json())
@@ -31,7 +31,7 @@ function Register() {
       password: password,
     };
 
-    fetch("http://localhost:4000/register", {
+    fetch("/api/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

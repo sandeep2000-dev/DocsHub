@@ -8,7 +8,7 @@ function Home() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:4000/", {
+    fetch("/api", {
       credentials: "include",
     })
       .then((res) => res.json())
@@ -21,7 +21,7 @@ function Home() {
   }, []);
 
   function handleLogout() {
-    fetch("http://localhost:4000/logout", {
+    fetch("/api/logout", {
       method: "DELETE",
       credentials: "include",
     })

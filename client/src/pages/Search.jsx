@@ -13,7 +13,7 @@ function Search() {
       title: title,
       userId: userId,
     };
-    fetch("http://localhost:4000/doc/search?" + new URLSearchParams(params), {
+    fetch("/api/doc/search?" + new URLSearchParams(params), {
       credentials: "include",
     })
       .then((res) => res.json())
